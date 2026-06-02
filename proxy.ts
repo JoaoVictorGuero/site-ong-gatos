@@ -45,6 +45,24 @@ export default async function proxy(request: NextRequest) {
       url.pathname = "/admin/login";
       return NextResponse.redirect(url);
     }
+
+    // Se estiver logado, verifica se o email dele está na tabela 'admins'
+    const { data: adminUser } = await supabase
+      .from("admins")
+      .select("id")
+      .eq("email", user.email)
+      .single();
+
+    // Se não encontrar o email na tabela, bloqueia
+    if (!adminUser) {
+      // Faz o logout do invasor por segurança
+      await supabase.auth.signOut();
+      
+      const url = request.nextUrl.clone();
+      url.pathname = "/admin/login";
+      url.searchParams.set("error", "unauthorized"); // Para mostrar uma mensagem na tela
+      return NextResponse.redirect(url);
+    }
   }
 
   return supabaseResponse;

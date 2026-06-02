@@ -1,26 +1,26 @@
 -- ============================================
--- Setup do banco de dados Supabase para ResGatas
--- Execute isso no SQL Editor do Supabase Dashboard
+-- SQL DE CONFIGURAÇÃO — ResGatas ONG
 -- ============================================
 
--- 1. Criar tabela de gatos
-CREATE TABLE IF NOT EXISTS cats (
-  id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
+-- 1. Criar a tabela de gatos
+CREATE TABLE cats (
+  id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
   nome TEXT NOT NULL,
   idade INTEGER,
   descricao TEXT,
   foto_url TEXT,
-  status TEXT DEFAULT 'disponivel' CHECK (status IN ('disponivel', 'adotado')),
-  created_at TIMESTAMPTZ DEFAULT now()
+  status TEXT NOT NULL DEFAULT 'disponivel', -- 'disponivel' ou 'adotado'
+  created_at TIMESTAMP WITH TIME ZONE DEFAULT timezone('utc'::text, now()) NOT NULL
 );
 
--- 2. Habilitar RLS (Row Level Security)
+-- 2. Habilitar o RLS (Row Level Security) na tabela
 ALTER TABLE cats ENABLE ROW LEVEL SECURITY;
 
--- 3. Política: qualquer pessoa pode LER gatos (site público)
-CREATE POLICY "Leitura pública dos gatos"
+-- 3. Política: qualquer pessoa pode LER (SELECT) os gatos
+CREATE POLICY "Leitura pública de gatos"
   ON cats
   FOR SELECT
+  TO public
   USING (true);
 
 -- 4. Política: apenas usuários autenticados podem INSERIR
@@ -44,6 +44,34 @@ CREATE POLICY "Admin pode excluir gatos"
   FOR DELETE
   TO authenticated
   USING (true);
+
+-- ============================================
+-- TABELA DE ADMINS (Segurança)
+-- ============================================
+
+-- Cria a tabela de administradores autorizados
+CREATE TABLE admins (
+  id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+  email TEXT NOT NULL UNIQUE,
+  created_at TIMESTAMP WITH TIME ZONE DEFAULT timezone('utc'::text, now()) NOT NULL
+);
+
+-- Proteção RLS para a tabela de admins (Opcional, mas boa prática)
+ALTER TABLE admins ENABLE ROW LEVEL SECURITY;
+
+-- Qualquer pessoa logada (ou pública) não precisa ler, 
+-- mas o banco vai acessar via role "service_role" ou "authenticated".
+-- Liberando leitura para usuários autenticados:
+CREATE POLICY "Autenticados podem ler tabela admins"
+  ON admins
+  FOR SELECT
+  TO authenticated
+  USING (true);
+
+-- INSERIR SEU EMAIL AQUI (Para você e a dona da ONG terem acesso inicial)
+INSERT INTO admins (email) VALUES 
+  ('seuemail@gmail.com'),
+  ('resgatasong@gmail.com');
 
 -- ============================================
 -- Storage: criar bucket para fotos dos gatos

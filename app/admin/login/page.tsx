@@ -1,17 +1,32 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import { useRouter } from "next/navigation";
-import { loginComGoogle, getUsuarioAtual } from "../../../lib/auth";
+import { useState, useEffect, Suspense } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
+import { loginComGoogle, getUsuarioAtual, logout } from "../../../lib/auth";
 
-export default function AdminLogin() {
+function AdminLoginContent() {
   const router = useRouter();
+  const searchParams = useSearchParams();
   const [loading, setLoading] = useState(false);
   const [checking, setChecking] = useState(true);
   const [error, setError] = useState("");
 
   // Se já estiver logado, redireciona para /admin
   useEffect(() => {
+    // Pega o parâmetro de erro da URL
+    const isUnauthorized = searchParams.get("error") === "unauthorized";
+    
+    if (isUnauthorized) {
+      // Se foi barrado pelo guarda-costas (middleware), limpa a sessão local também
+      logout();
+      setError("Seu e-mail não tem permissão para acessar o painel administrativo.");
+      setChecking(false);
+      
+      // Limpa a URL para não ficar com o ?error pra sempre
+      window.history.replaceState(null, "", "/admin/login");
+      return; 
+    }
+
     getUsuarioAtual().then((user) => {
       if (user) {
         router.replace("/admin");
@@ -19,7 +34,7 @@ export default function AdminLogin() {
         setChecking(false);
       }
     });
-  }, [router]);
+  }, [router, searchParams]);
 
   async function handleGoogleLogin() {
     setLoading(true);
@@ -83,5 +98,20 @@ export default function AdminLogin() {
         </div>
       </div>
     </div>
+  );
+}
+
+export default function AdminLogin() {
+  return (
+    <Suspense fallback={
+      <div className="admin-login-page">
+        <div className="admin-loading">
+          <div className="admin-spinner" />
+          <span>Carregando...</span>
+        </div>
+      </div>
+    }>
+      <AdminLoginContent />
+    </Suspense>
   );
 }
