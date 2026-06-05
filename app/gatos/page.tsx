@@ -1,19 +1,12 @@
 import Link from "next/link";
+import { getGatosDisponiveis } from "../../lib/supabase";
+import type { Gato } from "../../types/gato";
 
-/* 
-  Gatos estáticos de fallback — quando o Sanity não tiver dados,
-  mostramos esses gatinhos com as fotos locais.
-*/
-const gatosLocais = [
-  { id: "1", nome: "Mimi", idade: 2, desc: "Gata tranquila e carinhosa", img: "/fotos/gato.jpg" },
-  { id: "2", nome: "Pipoca", idade: 1, desc: "Brincalhona e cheia de energia", img: "/fotos/my%20masterpiece.jpg" },
-  { id: "3", nome: "Gordo", idade: 3, desc: "Curioso e muito amoroso", img: "/fotos/transferir%20(2).jpg" },
-  { id: "4", nome: "Yiyi", idade: 4, desc: "Calma e gosta de colos", img: "/fotos/Yiyi.jpg" },
-  { id: "5", nome: "Luna", idade: 2, desc: "Independente mas adora carinho", img: "/fotos/https___pin_it_5exuYskLd.jpg" },
-  { id: "6", nome: "Mel", idade: 5, desc: "Gatinha companheira e dócil", img: "/fotos/TENGO%20NUEVO%20CANAL!!!.jpg" },
-];
+export const revalidate = 60; // revalida a cada 60 segundos
 
-export default function Gatos() {
+export default async function Gatos() {
+  const gatos: Gato[] = await getGatosDisponiveis();
+
   return (
     <main>
       {/* Hero */}
@@ -70,22 +63,41 @@ export default function Gatos() {
             </p>
           </div>
 
-          <div className="cats-grid">
-            {gatosLocais.map((gato) => (
-              <article key={gato.id} className="cat-card">
-                <div className="cat-card-overflow">
-                  <img src={gato.img} alt={`Gata ${gato.nome}`} />
-                </div>
-                <div className="cat-card-body">
-                  <h3>{gato.nome}</h3>
-                  <span>
-                    {gato.idade} {gato.idade === 1 ? "ano" : "anos"} ·{" "}
-                    {gato.desc}
-                  </span>
-                </div>
-              </article>
-            ))}
-          </div>
+          {gatos.length > 0 ? (
+            <div className="cats-grid">
+              {gatos.map((gato) => (
+                <article key={gato.id} className="cat-card">
+                  <div className="cat-card-overflow">
+                    <img
+                      src={gato.foto_url || "/fotos/gato.jpg"}
+                      alt={`Gata ${gato.nome}`}
+                    />
+                  </div>
+                  <div className="cat-card-body">
+                    <h3>{gato.nome}</h3>
+                    <span>
+                      {gato.idade} {gato.idade === 1 ? "ano" : "anos"}
+                      {gato.descricao ? ` · ${gato.descricao}` : ""}
+                    </span>
+                  </div>
+                </article>
+              ))}
+            </div>
+          ) : (
+            <div
+              style={{
+                textAlign: "center",
+                padding: 48,
+                background: "var(--card)",
+                borderRadius: "var(--radius)",
+                boxShadow: "var(--shadow)",
+              }}
+            >
+              <p style={{ color: "var(--text-muted)", fontSize: "1.1rem" }}>
+                🐱 Nenhum gatinho disponível no momento. Volte em breve!
+              </p>
+            </div>
+          )}
 
           <div
             style={{

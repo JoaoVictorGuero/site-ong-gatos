@@ -1,6 +1,13 @@
 import Link from "next/link";
+import { getGatosDisponiveis } from "../lib/supabase";
+import type { Gato } from "../types/gato";
 
-export default function Home() {
+export const revalidate = 60;
+
+export default async function Home() {
+  const todosGatos: Gato[] = await getGatosDisponiveis();
+  const gatosPreview = todosGatos.slice(0, 3);
+
   return (
     <main>
       {/* ── Hero ── */}
@@ -53,33 +60,55 @@ export default function Home() {
             </p>
           </div>
           <div className="cats-grid">
-            <article className="cat-card">
-              <div className="cat-card-overflow">
-                <img src="/fotos/gato.jpg" alt="Gata Mimi" />
-              </div>
-              <div className="cat-card-body">
-                <h3>Mimi</h3>
-                <span>2 anos · tranquila</span>
-              </div>
-            </article>
-            <article className="cat-card">
-              <div className="cat-card-overflow">
-                <img src="/fotos/my%20masterpiece.jpg" alt="Gata Pipoca" />
-              </div>
-              <div className="cat-card-body">
-                <h3>Pipoca</h3>
-                <span>1 ano · brincalhona</span>
-              </div>
-            </article>
-            <article className="cat-card">
-              <div className="cat-card-overflow">
-                <img src="/fotos/transferir%20(2).jpg" alt="Gato Gordo" />
-              </div>
-              <div className="cat-card-body">
-                <h3>Gordo</h3>
-                <span>3 anos · curioso</span>
-              </div>
-            </article>
+            {gatosPreview.length > 0 ? (
+              gatosPreview.map((gato) => (
+                <article key={gato.id} className="cat-card">
+                  <div className="cat-card-overflow">
+                    <img
+                      src={gato.foto_url || "/fotos/gato.jpg"}
+                      alt={`Gata ${gato.nome}`}
+                    />
+                  </div>
+                  <div className="cat-card-body">
+                    <h3>{gato.nome}</h3>
+                    <span>
+                      {gato.idade} {gato.idade === 1 ? "ano" : "anos"}
+                      {gato.descricao ? ` · ${gato.descricao}` : ""}
+                    </span>
+                  </div>
+                </article>
+              ))
+            ) : (
+              <>
+                <article className="cat-card">
+                  <div className="cat-card-overflow">
+                    <img src="/fotos/gato.jpg" alt="Gata Mimi" />
+                  </div>
+                  <div className="cat-card-body">
+                    <h3>Mimi</h3>
+                    <span>2 anos · tranquila</span>
+                  </div>
+                </article>
+                <article className="cat-card">
+                  <div className="cat-card-overflow">
+                    <img src="/fotos/my%20masterpiece.jpg" alt="Gata Pipoca" />
+                  </div>
+                  <div className="cat-card-body">
+                    <h3>Pipoca</h3>
+                    <span>1 ano · brincalhona</span>
+                  </div>
+                </article>
+                <article className="cat-card">
+                  <div className="cat-card-overflow">
+                    <img src="/fotos/transferir%20(2).jpg" alt="Gato Gordo" />
+                  </div>
+                  <div className="cat-card-body">
+                    <h3>Gordo</h3>
+                    <span>3 anos · curioso</span>
+                  </div>
+                </article>
+              </>
+            )}
           </div>
           <div style={{ textAlign: "center", marginTop: 36 }}>
             <Link href="/gatos" className="btn btn-primary">

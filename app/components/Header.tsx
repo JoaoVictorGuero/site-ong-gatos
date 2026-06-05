@@ -17,6 +17,9 @@ export default function Header() {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
 
+  // Esconde o header público no painel admin
+  if (pathname.startsWith("/admin")) return null;
+
   return (
     <header className="site-header">
       <div className="header-inner">

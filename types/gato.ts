@@ -1,9 +1,9 @@
-import type { SanityImageSource } from "@sanity/image-url/lib/types/types";
-
 export type Gato = {
-  _id: string;
-  nome?: string;
-  idade?: number;
-  descricao?: string;
-  imagem?: SanityImageSource;
+  id: string;
+  nome: string;
+  idade: number | null;
+  descricao: string | null;
+  foto_url: string | null;
+  status: "disponivel" | "adotado";
+  created_at: string;
 };
