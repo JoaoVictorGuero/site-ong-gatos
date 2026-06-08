@@ -52,7 +52,6 @@ export default async function Ajudar() {
           >
             <h2
               style={{
-                fontFamily: '"Playfair Display", serif',
                 fontSize: "1.4rem",
                 marginBottom: 20,
               }}
