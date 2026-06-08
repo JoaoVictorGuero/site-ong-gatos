@@ -1,6 +1,27 @@
 import Link from "next/link";
 
-export default function Ajudar() {
+async function getApoiaSeData() {
+  try {
+    const res = await fetch("https://apoia.se/api/v1/users/resgatas", {
+      next: { revalidate: 3600 },
+    });
+    const data = await res.json();
+    const campaign = data?.campaigns?.[0];
+    return {
+      arrecadado: campaign?.supports?.total?.value || 0,
+      meta: campaign?.goals?.[0]?.value || 6000,
+    };
+  } catch (error) {
+    console.error("Erro ao buscar dados do Apoia.se:", error);
+    return { arrecadado: 0, meta: 0 };
+  }
+}
+
+export default async function Ajudar() {
+  const { arrecadado, meta } = await getApoiaSeData();
+  const faltam = meta > arrecadado ? meta - arrecadado : 0;
+  const porcentagem = Math.min((arrecadado / meta) * 100, 100);
+
   return (
     <main>
       {/* Hero */}
@@ -39,13 +60,13 @@ export default function Ajudar() {
               Meta mensal de arrecadação
             </h2>
             <div className="progress-label">
-              <span>R$ 906 arrecadados</span>
-              <span>Meta: R$ 6.000</span>
+              <span>R$ {arrecadado.toLocaleString("pt-BR")} arrecadados</span>
+              <span>Meta: R$ {meta.toLocaleString("pt-BR")}</span>
             </div>
             <div className="progress-bar-container">
               <div
                 className="progress-bar-fill"
-                style={{ width: `${(906 / 6000) * 100}%` }}
+                style={{ width: `${porcentagem}%` }}
               />
             </div>
             <p
@@ -55,7 +76,7 @@ export default function Ajudar() {
                 fontSize: "0.95rem",
               }}
             >
-              Faltam <strong>R$ {(6000 - 906).toLocaleString("pt-BR")}</strong>{" "}
+              Faltam <strong>R$ {faltam.toLocaleString("pt-BR")}</strong>{" "}
               para atingir a meta. Cada real conta!
             </p>
           </div>
