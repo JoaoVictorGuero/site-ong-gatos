@@ -25,6 +25,7 @@ export default function Header() {
       <div className="header-inner">
         <Link href="/" className="header-logo">
           <img src="/assets/imgs/logo.png" alt="ResGatas - Logo" />
+          <span className="logo-text">ResGatas</span>
         </Link>
 
         <button
