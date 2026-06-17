@@ -38,8 +38,8 @@ export default async function Gatos() {
             <h3>Como funciona</h3>
             <ol>
               <li>Entre em contato pelo formulário ou Instagram</li>
-              <li>Agende uma visita ao abrigo</li>
-              <li>Conheça as gatinhas disponíveis</li>
+              <li>Passe por uma entrevista e agende sua visita</li>
+              <li>Conheça as gatinhas disponíveis para adoção</li>
               <li>Receba orientações e finalize a adoção</li>
             </ol>
             <div style={{ marginTop: 20 }}>

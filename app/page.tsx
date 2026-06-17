@@ -19,8 +19,8 @@ export default async function Home() {
           </h1>
           <p className="hero-subtitle">
             A ResGatas resgata, castra e encontra lares para gatas adultas em
-            Itajaí&nbsp;–&nbsp;SC. Com sua ajuda, já cuidamos de mais de 60
-            gatinhas.
+            Itajaí&nbsp;–&nbsp;SC. Com sua ajuda, já cuidamos de quase 1.000
+            gatas nesses 13 anos.
           </p>
           <div className="hero-actions">
             <Link href="/gatos" className="btn btn-primary">
@@ -33,11 +33,11 @@ export default async function Home() {
 
           <div className="hero-stats">
             <div className="hero-stat">
-              <div className="hero-stat-value">+60</div>
-              <div className="hero-stat-label">Gatas resgatadas</div>
+              <div className="hero-stat-value">~100</div>
+              <div className="hero-stat-label">Gatas no santuário</div>
             </div>
             <div className="hero-stat">
-              <div className="hero-stat-value">7</div>
+              <div className="hero-stat-value">13</div>
               <div className="hero-stat-label">Anos de atuação</div>
             </div>
             <div className="hero-stat">
@@ -125,8 +125,8 @@ export default async function Home() {
             <p className="eyebrow">Sobre a nossa ONG</p>
             <h2>Resgatamos, cuidamos e conectamos</h2>
             <p>
-              A ResGatas nasceu há 7 anos para transformar abandono em
-              histórias de afeto. Somos um abrigo particular focado em gatas
+              A ResGatas nasceu há 13 anos para transformar abandono em
+              histórias de afeto. Somos um santuário focado em gatas
               adultas — as que mais precisam de uma chance. Cada resgate vira
               um novo lar, cada doação mantém os cuidados.
             </p>
@@ -200,7 +200,7 @@ export default async function Home() {
             <p className="eyebrow">Transparência</p>
             <h2>Nossa meta mensal</h2>
             <p>
-              Precisamos de R$&nbsp;6.000 por mês para manter o abrigo.
+              Precisamos de R$&nbsp;10.000 por mês para manter o santuário.
               Atualmente arrecadamos cerca de R$&nbsp;906.
             </p>
           </div>
@@ -214,12 +214,12 @@ export default async function Home() {
           >
             <div className="progress-label">
               <span>R$ 906 arrecadados</span>
-              <span>Meta: R$ 6.000</span>
+              <span>Meta: R$ 10.000</span>
             </div>
             <div className="progress-bar-container">
               <div
                 className="progress-bar-fill"
-                style={{ width: `${(906 / 6000) * 100}%` }}
+                style={{ width: `${(906 / 10000) * 100}%` }}
               />
             </div>
             <p
@@ -230,7 +230,7 @@ export default async function Home() {
                 fontSize: "0.95rem",
               }}
             >
-              Faltam <strong>R$ {(6000 - 906).toLocaleString("pt-BR")}</strong>{" "}
+              Faltam <strong>R$ {(10000 - 906).toLocaleString("pt-BR")}</strong>{" "}
               para atingir a meta. Cada doação conta!
             </p>
             <div style={{ textAlign: "center", marginTop: 20 }}>
@@ -246,14 +246,14 @@ export default async function Home() {
       <section className="section" style={{ background: "var(--bg-alt)" }}>
         <div className="container split reverse">
           <div className="split-text">
-            <p className="eyebrow">Contato e endereço</p>
-            <h2>Venha nos conhecer!</h2>
+            <p className="eyebrow">Acompanhe e Contato</p>
+            <h2>Conheça nosso trabalho!</h2>
             <p>
-              Estamos em Itajaí&nbsp;–&nbsp;SC. Visite o abrigo, conheça as
+              Estamos em Itajaí&nbsp;–&nbsp;SC. Conheça as
               gatinhas e acompanhe as novidades pelo Instagram.
             </p>
             <ul className="contact-list">
-              <li>📍 R. Fortunato Tormena, Itajaí - SC, 88318-053</li>
+              <li>📍 Itajaí - SC</li>
               <li>📞 (47) 99212-9083</li>
               <li>
                 📷 Instagram:{" "}

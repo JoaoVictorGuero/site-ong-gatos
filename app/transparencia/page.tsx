@@ -28,7 +28,7 @@ export default function Transparencia() {
           <div className="about-highlight" style={{ maxWidth: 800, marginBottom: 48 }}>
             <div>
               <p className="about-label">Meta mensal</p>
-              <p className="about-value">R$ 6.000</p>
+              <p className="about-value">R$ 10.000</p>
             </div>
             <div>
               <p className="about-label">Arrecadação atual</p>
@@ -39,8 +39,8 @@ export default function Transparencia() {
               <p className="about-value">34</p>
             </div>
             <div>
-              <p className="about-label">Gatas no abrigo</p>
-              <p className="about-value">+60</p>
+              <p className="about-label">Gatas no santuário</p>
+              <p className="about-value">~100</p>
             </div>
           </div>
 
@@ -57,12 +57,12 @@ export default function Transparencia() {
           >
             <div className="progress-label">
               <span>R$ 906</span>
-              <span>R$ 6.000</span>
+              <span>R$ 10.000</span>
             </div>
             <div className="progress-bar-container">
               <div
                 className="progress-bar-fill"
-                style={{ width: `${(906 / 6000) * 100}%` }}
+                style={{ width: `${(906 / 10000) * 100}%` }}
               />
             </div>
             <p
@@ -73,7 +73,7 @@ export default function Transparencia() {
                 fontSize: "0.9rem",
               }}
             >
-              Estamos em ~15% da meta. Sua ajuda faz a diferença!
+              Estamos em ~9% da meta. Sua ajuda faz a diferença!
             </p>
           </div>
         </div>
@@ -87,7 +87,8 @@ export default function Transparencia() {
             <h2>Para onde vão os recursos</h2>
             <p>
               100% das doações são investidas no cuidado das gatas. Não temos
-              auxílio público.
+              auxílio público. Nossa despesa fixa com alimentação e areia é de R$ 8.000, 
+              por isso nossa meta é R$ 10.000 para cobrir também as despesas veterinárias.
             </p>
           </div>
 
