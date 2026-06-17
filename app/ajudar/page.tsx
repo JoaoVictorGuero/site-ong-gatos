@@ -9,7 +9,7 @@ async function getApoiaSeData() {
     const campaign = data?.campaigns?.[0];
     return {
       arrecadado: campaign?.supports?.total?.value || 0,
-      meta: campaign?.goals?.[0]?.value || 6000,
+      meta: campaign?.goals?.[0]?.value || 10000,
     };
   } catch (error) {
     console.error("Erro ao buscar dados do Apoia.se:", error);
@@ -32,7 +32,7 @@ export default async function Ajudar() {
             Sua doação faz a diferença
           </h1>
           <p className="donation-subtitle">
-            Cada contribuição ajuda a manter o abrigo, comprar ração, remédios e
+            Cada contribuição ajuda a manter o santuário, comprar ração, remédios e
             garantir novos resgates. Vivemos 100% de doações.
           </p>
         </div>
@@ -99,7 +99,7 @@ export default async function Ajudar() {
               </div>
               <h2>Doe via Apoia.se</h2>
               <p>
-                Contribuição mensal para sustentar os cuidados do abrigo.
+                Contribuição mensal para sustentar os cuidados do santuário.
                 Receba novidades dos nossos resgatados direto no seu e-mail.
               </p>
               <a
