@@ -811,3 +811,85 @@
     display: none;
   }
 }
+
+/* ── Badges de Status das Solicitações ── */
+.admin-badge-novo {
+  background: #fef2f2;
+  color: #991b1b;
+}
+
+.admin-badge-respondido {
+  background: #dcfce7;
+  color: #166534;
+}
+
+/* ── Badges de Assunto das Solicitações ── */
+.admin-badge-doacao {
+  background: #dcfce7;
+  color: #15803d;
+}
+
+.admin-badge-adocao {
+  background: #fce7f3;
+  color: #be185d;
+}
+
+.admin-badge-voluntario {
+  background: #dbeafe;
+  color: #1d4ed8;
+}
+
+.admin-badge-parceria {
+  background: #f3e8ff;
+  color: #7e22ce;
+}
+
+.admin-badge-outro {
+  background: #f3f4f6;
+  color: #374151;
+}
+
+/* ── Filtros do Admin de Solicitações ── */
+.admin-filters {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.admin-filter-select {
+  padding: 8px 16px;
+  border: 2px solid var(--bg-alt);
+  border-radius: 12px;
+  background: var(--card);
+  color: var(--text);
+  font-family: "Manrope", sans-serif;
+  font-size: 0.88rem;
+  outline: none;
+  cursor: pointer;
+  transition: border-color var(--transition);
+}
+
+.admin-filter-select:focus {
+  border-color: var(--primary);
+}
+
+.admin-btn-action {
+  padding: 6px 12px;
+  border-radius: 8px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  cursor: pointer;
+  border: none;
+  transition: all var(--transition);
+}
+
+.admin-btn-action-primary {
+  background: rgba(123, 75, 227, 0.1);
+  color: var(--primary);
+}
+
+.admin-btn-action-primary:hover {
+  background: var(--primary);
+  color: #fff;
+}
+
