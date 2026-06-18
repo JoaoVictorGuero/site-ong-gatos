@@ -4,16 +4,23 @@ import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { logout, getUsuarioAtual } from "../../../lib/auth";
+import { countNewRequests } from "../../../lib/actions";
 import type { User } from "@supabase/supabase-js";
 
 export default function AdminSidebar() {
   const pathname = usePathname();
   const router = useRouter();
   const [user, setUser] = useState<User | null>(null);
+  const [newCount, setNewCount] = useState(0);
 
   useEffect(() => {
     getUsuarioAtual().then((u) => setUser(u));
   }, []);
+
+  useEffect(() => {
+    // Busca contagem de novas solicitações
+    countNewRequests().then((c) => setNewCount(c));
+  }, [pathname]);
 
   async function handleLogout() {
     await logout();
@@ -59,6 +66,32 @@ export default function AdminSidebar() {
         >
           <span className="sidebar-icon">🐱</span>
           <span>Gatinhos</span>
+        </Link>
+        <Link
+          href="/admin/solicitacoes"
+          className={`admin-sidebar-link ${pathname.includes("/admin/solicitacoes") ? "active" : ""}`}
+        >
+          <span className="sidebar-icon">✉️</span>
+          <span style={{ display: "flex", alignItems: "center", justifyContent: "space-between", width: "100%" }}>
+            <span>Solicitações</span>
+            {newCount > 0 && (
+              <span
+                style={{
+                  background: "#ef4444",
+                  color: "#fff",
+                  borderRadius: "999px",
+                  padding: "2px 8px",
+                  fontSize: "0.75rem",
+                  fontWeight: "bold",
+                  marginLeft: "8px",
+                  minWidth: "20px",
+                  textAlign: "center"
+                }}
+              >
+                {newCount}
+              </span>
+            )}
+          </span>
         </Link>
       </nav>
 
