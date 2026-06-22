@@ -8,8 +8,7 @@ const links = [
   { href: "/", label: "Início" },
   { href: "/sobre", label: "Quem Somos" },
   { href: "/gatos", label: "Gatinhos" },
-  { href: "/ajudar", label: "Ajude / Doe" },
-  { href: "/transparencia", label: "Transparência" },
+  { href: "/ajudar", label: "Ajude / Transparência" },
   { href: "/contato", label: "Contato" },
 ];
 

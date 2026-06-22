@@ -1,12 +1,18 @@
 import Link from "next/link";
 import { getGatosDisponiveis } from "../lib/supabase";
 import type { Gato } from "../types/gato";
+import { getApoiaSeData } from "../lib/apoiaSe";
+import { getAnosDeAtuacao } from "../lib/utils";
 
 export const revalidate = 60;
 
 export default async function Home() {
   const todosGatos: Gato[] = await getGatosDisponiveis();
   const gatosPreview = todosGatos.slice(0, 3);
+  const { arrecadado, apoiadores, meta } = await getApoiaSeData();
+  const porcentagem = Math.min((arrecadado / meta) * 100, 100);
+  const faltam = meta > arrecadado ? meta - arrecadado : 0;
+  const anosAtuacao = getAnosDeAtuacao();
 
   return (
     <main>
@@ -20,7 +26,7 @@ export default async function Home() {
           <p className="hero-subtitle">
             A ResGatas resgata, castra e encontra lares para gatas adultas em
             Itajaí&nbsp;–&nbsp;SC. Com sua ajuda, já cuidamos de quase 1.000
-            gatas nesses 13 anos.
+            gatas nesses {anosAtuacao} anos.
           </p>
           <div className="hero-actions">
             <Link href="/gatos" className="btn btn-primary">
@@ -37,11 +43,11 @@ export default async function Home() {
               <div className="hero-stat-label">Gatas no santuário</div>
             </div>
             <div className="hero-stat">
-              <div className="hero-stat-value">13</div>
+              <div className="hero-stat-value">{anosAtuacao}</div>
               <div className="hero-stat-label">Anos de atuação</div>
             </div>
             <div className="hero-stat">
-              <div className="hero-stat-value">34</div>
+              <div className="hero-stat-value">{apoiadores}</div>
               <div className="hero-stat-label">Apoiadores</div>
             </div>
           </div>
@@ -125,7 +131,7 @@ export default async function Home() {
             <p className="eyebrow">Sobre a nossa ONG</p>
             <h2>Resgatamos, cuidamos e conectamos</h2>
             <p>
-              A ResGatas nasceu há 13 anos para transformar abandono em
+              A ResGatas nasceu há {anosAtuacao} anos para transformar abandono em
               histórias de afeto. Somos um santuário focado em gatas
               adultas — as que mais precisam de uma chance. Cada resgate vira
               um novo lar, cada doação mantém os cuidados.
@@ -200,8 +206,8 @@ export default async function Home() {
             <p className="eyebrow">Transparência</p>
             <h2>Nossa meta mensal</h2>
             <p>
-              Precisamos de R$&nbsp;10.000 por mês para manter o santuário.
-              Atualmente arrecadamos cerca de R$&nbsp;906.
+              Precisamos de R$&nbsp;{meta.toLocaleString("pt-BR")} por mês para manter o abrigo.
+              Atualmente arrecadamos cerca de R$&nbsp;{arrecadado.toLocaleString("pt-BR")}.
             </p>
           </div>
           <div
@@ -213,13 +219,13 @@ export default async function Home() {
             }}
           >
             <div className="progress-label">
-              <span>R$ 906 arrecadados</span>
-              <span>Meta: R$ 10.000</span>
+              <span>R$ {arrecadado.toLocaleString("pt-BR")} arrecadados</span>
+              <span>Meta: R$ {meta.toLocaleString("pt-BR")}</span>
             </div>
             <div className="progress-bar-container">
               <div
                 className="progress-bar-fill"
-                style={{ width: `${(906 / 10000) * 100}%` }}
+                style={{ width: `${porcentagem}%` }}
               />
             </div>
             <p
@@ -230,7 +236,7 @@ export default async function Home() {
                 fontSize: "0.95rem",
               }}
             >
-              Faltam <strong>R$ {(10000 - 906).toLocaleString("pt-BR")}</strong>{" "}
+              Faltam <strong>R$ {faltam.toLocaleString("pt-BR")}</strong>{" "}
               para atingir a meta. Cada doação conta!
             </p>
             <div style={{ textAlign: "center", marginTop: 20 }}>
