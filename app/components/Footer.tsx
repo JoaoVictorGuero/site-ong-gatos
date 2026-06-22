@@ -69,7 +69,6 @@ export default function Footer() {
               @ResGatas
             </a>
             <Link href="/contato">Fale conosco</Link>
-            <Link href="/transparencia">Transparência</Link>
           </div>
         </div>
 

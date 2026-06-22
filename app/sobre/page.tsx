@@ -1,4 +1,9 @@
-export default function Sobre() {
+import { getApoiaSeData } from "../../lib/apoiaSe";
+import { getAnosDeAtuacao } from "../../lib/utils";
+
+export default async function Sobre() {
+  const { arrecadado, apoiadores, meta } = await getApoiaSeData();
+  const anosAtuacao = getAnosDeAtuacao();
   return (
     <main>
       {/* Hero */}
@@ -7,121 +12,49 @@ export default function Sobre() {
           <p className="eyebrow">Quem Somos</p>
           <h1 style={{ fontSize: "2.8rem", marginBottom: 16 }}>ResGatas</h1>
           <p className="about-subtitle">
-            Resgate, cuidado e adoção consciente de gatas adultas em
-            Itajaí&nbsp;–&nbsp;Santa Catarina. Há 13 anos transformando
-            abandono em amor.
+            Santuário dedicado ao resgate, cuidado e adoção consciente de gatas adultas em
+            Itajaí&nbsp;–&nbsp;Santa Catarina. Há {anosAtuacao} anos transformando
+            o abandono em amor para nossas ~100 moradoras.
           </p>
-          <div className="about-highlight">
-            <div>
-              <p className="about-label">Tempo de atuação</p>
-              <p className="about-value">13 anos</p>
-            </div>
-            <div>
-              <p className="about-label">Gatas no santuário</p>
-              <p className="about-value">~100</p>
-            </div>
-            <div>
-              <p className="about-label">Tipo</p>
-              <p className="about-value">Santuário</p>
-            </div>
-          </div>
         </div>
       </section>
 
-      {/* Cards de informação */}
+      {/* Texto Corrido (Sobre) */}
       <section className="section">
-        <div className="container about-grid">
-          <article className="about-card">
-            <h2>📋 Identificação</h2>
-            <ul className="about-list">
-              <li>Nome: ResGatas</li>
-              <li>Cidade: Itajaí – Santa Catarina</li>
-              <li>Tempo de atuação: 13 anos</li>
-              <li>Tipo: Santuário</li>
-            </ul>
-          </article>
+        <div className="container" style={{ maxWidth: 800 }}>
+          <article
+            style={{
+              fontSize: "1.05rem",
+              lineHeight: 1.8,
+              color: "var(--text-muted)",
+              marginTop: -20,
+            }}
+          >
+            <h2 style={{ color: "var(--primary)", marginBottom: 16, fontSize: "1.8rem" }}>Nossa História</h2>
+            <p style={{ marginBottom: 16 }}>
+              A <strong>ResGatas</strong> atua na cidade de Itajaí – Santa Catarina há {anosAtuacao} anos como um santuário focado no resgate, cuidado e adoção consciente de gatas adultas em estado de abandono.
+            </p>
+            <p style={{ marginBottom: 32 }}>
+              Tudo começou em 27/05/2020, quando a gatinha Alana foi internada com uma sonda gástrica. Esse momento marcante deu início à nossa missão oficial de transformar o abandono em histórias de amor.
+            </p>
 
-          <article className="about-card">
-            <h2>🎯 Missão</h2>
-            <ul className="about-list">
-              <li>
-                Resgatar, castrar e doar gatas adultas em estado de abandono
-              </li>
-            </ul>
-            <h3>Animais</h3>
-            <ul className="about-list">
-              <li>Foco: gatas adultas (não filhotes)</li>
-              <li>Número atual: aproximadamente 100 gatas</li>
-              <li>Atenção: Somos um santuário. A grande maioria das gatas tem mais de 9 anos ou são ariscas, vivendo aqui definitivamente de forma segura. Somente gatas recém-resgatadas sociáveis (atualmente cerca de 6) estão para adoção.</li>
-            </ul>
-          </article>
+            <h2 style={{ color: "var(--primary)", marginBottom: 16, fontSize: "1.8rem" }}>Nossa Missão</h2>
+            <p style={{ marginBottom: 16 }}>
+              Diferente de muitas ONGs, nosso foco principal é voltado para <strong>gatas adultas</strong>, e não filhotes. Atualmente, nosso santuário abriga aproximadamente 100 felinas.
+            </p>
+            <p style={{ marginBottom: 32 }}>
+              <strong>Atenção:</strong> Somos um santuário definitivo para a maioria das nossas moradoras. A grande parte das gatinhas tem mais de 9 anos ou apresenta comportamento arisco, vivendo aqui de forma permanente e segura. Somente gatas recém-resgatadas que são sociáveis (atualmente cerca de 6) estão disponíveis para adoção.
+            </p>
 
-          <article className="about-card">
-            <h2>💰 Finanças</h2>
-            <ul className="about-list">
-              <li>Vive 100% de doações (sem auxílio público)</li>
-              <li>Plataforma de doação: Apoia.se</li>
-              <li>Meta mensal: R$ 10.000 (R$ 8.000 para gastos fixos + R$ 2.000 para veterinários/medicação)</li>
-              <li>Arrecadação atual: ~R$ 906 por mês</li>
-              <li>Número de apoiadores: 34 pessoas</li>
-            </ul>
-          </article>
+            <h2 style={{ color: "var(--primary)", marginBottom: 16, fontSize: "1.8rem" }}>Como nos Mantemos</h2>
+            <p style={{ marginBottom: 16 }}>
+              A ResGatas vive <strong>100% de doações</strong>, não recebendo nenhum auxílio público ou governamental. Nossa despesa principal é com a alimentação, chegando a consumir 10 kg de ração a cada 3 dias, além dos gastos contínuos com patês, areia higiênica, vermífugos, vacinas e consultas veterinárias.
+            </p>
+            <p style={{ marginBottom: 32 }}>
+              A nossa meta mensal de arrecadação no Apoia.se é de R$ {meta.toLocaleString("pt-BR")} (sendo R$ 8.000 para gastos fixos e R$ 2.000 reservados para emergências). Hoje contamos com o apoio de {apoiadores} pessoas incríveis, arrecadando cerca de R$ {arrecadado.toLocaleString("pt-BR")} por mês.
+            </p>
 
-          <article className="about-card">
-            <h2>🛒 Gastos Mensais</h2>
-            <ul className="about-list">
-              <li>Consumo de ração: 10 kg a cada 3 dias</li>
-              <li>
-                Destinação: ração, patês, areia, vermífugos, vacinas, consultas
-                veterinárias
-              </li>
-            </ul>
-          </article>
 
-          <article className="about-card">
-            <h2>📜 Histórico</h2>
-            <ul className="about-list">
-              <li>
-                27/05/2020 – Gata &ldquo;Alana&rdquo; internada com sonda
-                gástrica na clínica Adharas
-              </li>
-            </ul>
-          </article>
-
-          <article className="about-card">
-            <h2>📞 Contato</h2>
-            <ul className="about-list">
-              <li>Telefone: (47) 99212-9083</li>
-              <li>
-                Instagram:{" "}
-                <a
-                  href="https://instagram.com/ResGatas"
-                  target="_blank"
-                  rel="noreferrer"
-                >
-                  @ResGatas
-                </a>
-              </li>
-              <li>
-                Facebook:{" "}
-                <a
-                  href="https://facebook.com/ResGatas"
-                  target="_blank"
-                  rel="noreferrer"
-                >
-                  ResGatas
-                </a>
-              </li>
-            </ul>
-          </article>
-
-          <article className="about-card">
-            <h2>🕐 Horário de Funcionamento</h2>
-            <ul className="about-list">
-              <li>Segunda a sexta: 09h às 18h</li>
-              <li>Sábado: 09h às 13h</li>
-              <li>Domingo: Fechado</li>
-            </ul>
           </article>
         </div>
       </section>

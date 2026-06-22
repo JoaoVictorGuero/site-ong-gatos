@@ -1,24 +1,8 @@
 import Link from "next/link";
-
-async function getApoiaSeData() {
-  try {
-    const res = await fetch("https://apoia.se/api/v1/users/resgatas", {
-      next: { revalidate: 3600 },
-    });
-    const data = await res.json();
-    const campaign = data?.campaigns?.[0];
-    return {
-      arrecadado: campaign?.supports?.total?.value || 0,
-      meta: campaign?.goals?.[0]?.value || 10000,
-    };
-  } catch (error) {
-    console.error("Erro ao buscar dados do Apoia.se:", error);
-    return { arrecadado: 0, meta: 0 };
-  }
-}
+import { getApoiaSeData } from "../../lib/apoiaSe";
 
 export default async function Ajudar() {
-  const { arrecadado, meta } = await getApoiaSeData();
+  const { arrecadado, apoiadores, meta } = await getApoiaSeData();
   const faltam = meta > arrecadado ? meta - arrecadado : 0;
   const porcentagem = Math.min((arrecadado / meta) * 100, 100);
 
@@ -27,14 +11,41 @@ export default async function Ajudar() {
       {/* Hero */}
       <section className="donation-hero">
         <div className="container">
-          <p className="eyebrow">Ajude a ResGatas</p>
+          <p className="eyebrow">Ajude e Transparência</p>
           <h1 style={{ fontSize: "2.8rem", marginBottom: 16 }}>
             Sua doação faz a diferença
           </h1>
           <p className="donation-subtitle">
-            Cada contribuição ajuda a manter o santuário, comprar ração, remédios e
-            garantir novos resgates. Vivemos 100% de doações.
+            A ResGatas acredita na transparência total. Cada contribuição ajuda a manter o santuário, comprar ração, remédios e garantir novos resgates. Vivemos 100% de doações.
           </p>
+        </div>
+      </section>
+
+      {/* Números atuais */}
+      <section className="section" style={{ paddingBottom: 0 }}>
+        <div className="container">
+          <div className="section-header">
+            <p className="eyebrow">Números atuais</p>
+            <h2>Como estamos hoje</h2>
+          </div>
+          <div className="about-highlight" style={{ maxWidth: 800, marginBottom: 48 }}>
+            <div>
+              <p className="about-label">Meta mensal</p>
+              <p className="about-value">R$ {meta.toLocaleString("pt-BR")}</p>
+            </div>
+            <div>
+              <p className="about-label">Arrecadação atual</p>
+              <p className="about-value">~R$ {arrecadado.toLocaleString("pt-BR")}</p>
+            </div>
+            <div>
+              <p className="about-label">Apoiadores</p>
+              <p className="about-value">{apoiadores}</p>
+            </div>
+            <div>
+              <p className="about-label">Gatas no santuário</p>
+              <p className="about-value">~100</p>
+            </div>
+          </div>
         </div>
       </section>
 
@@ -173,40 +184,70 @@ export default async function Ajudar() {
         </div>
       </section>
 
-      {/* Onde vai seu dinheiro */}
-      <section className="section">
-        <div className="container" style={{ maxWidth: 700 }}>
+      {/* Gastos detalhados */}
+      <section id="transparencia" className="section">
+        <div className="container">
           <div className="section-header">
-            <p className="eyebrow">Transparência</p>
-            <h2>Para onde vai sua doação</h2>
+            <p className="eyebrow">Gastos mensais</p>
+            <h2>Para onde vão os recursos</h2>
+            <p>
+              100% das doações são investidas no cuidado das gatas. Não temos
+              auxílio público. Nossa despesa fixa com alimentação e areia é de R$ 8.000, 
+              por isso nossa meta é R$ 10.000 para cobrir também as despesas veterinárias.
+            </p>
           </div>
-          <div
-            style={{
-              background: "var(--card)",
-              borderRadius: "var(--radius)",
-              padding: 28,
-              boxShadow: "var(--shadow)",
-            }}
-          >
-            <div className="expense-item">
-              <span>🥫 Ração (10kg a cada 3 dias)</span>
-              <strong>Principal</strong>
+
+          <div className="transparency-grid">
+            <div className="transparency-card">
+              <h3>🥫 Alimentação</h3>
+              <div className="expense-item">
+                <span>Ração seca (10kg a cada 3 dias)</span>
+                <strong>~100kg/mês</strong>
+              </div>
+              <div className="expense-item">
+                <span>Patês e sachês</span>
+                <strong>Diário</strong>
+              </div>
+              <div className="expense-item">
+                <span>Suplementos</span>
+                <strong>Conforme necessidade</strong>
+              </div>
             </div>
-            <div className="expense-item">
-              <span>🩺 Consultas veterinárias</span>
-              <strong>Essencial</strong>
+
+            <div className="transparency-card">
+              <h3>🩺 Saúde</h3>
+              <div className="expense-item">
+                <span>Consultas veterinárias</span>
+                <strong>Mensal</strong>
+              </div>
+              <div className="expense-item">
+                <span>Vacinas</span>
+                <strong>Periódico</strong>
+              </div>
+              <div className="expense-item">
+                <span>Vermífugos</span>
+                <strong>Periódico</strong>
+              </div>
+              <div className="expense-item">
+                <span>Castrações</span>
+                <strong>Conforme resgates</strong>
+              </div>
             </div>
-            <div className="expense-item">
-              <span>💉 Vacinas e vermífugos</span>
-              <strong>Periódico</strong>
-            </div>
-            <div className="expense-item">
-              <span>🧹 Areia higiênica</span>
-              <strong>Contínuo</strong>
-            </div>
-            <div className="expense-item">
-              <span>🍽️ Patês e suplementos</span>
-              <strong>Frequente</strong>
+
+            <div className="transparency-card">
+              <h3>🧹 Higiene e manutenção</h3>
+              <div className="expense-item">
+                <span>Areia higiênica</span>
+                <strong>Contínuo</strong>
+              </div>
+              <div className="expense-item">
+                <span>Produtos de limpeza</span>
+                <strong>Mensal</strong>
+              </div>
+              <div className="expense-item">
+                <span>Manutenção do espaço</span>
+                <strong>Conforme necessidade</strong>
+              </div>
             </div>
           </div>
         </div>
