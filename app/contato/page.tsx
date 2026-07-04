@@ -118,22 +118,13 @@ export default function Contato() {
           <div>
             <div className="contact-info-card">
               <h3>📍 Informações</h3>
-              <div className="contact-item">
-                <div className="contact-icon">📍</div>
-                <div>
-                  <strong>Endereço</strong>
-                  <br />
-                  <span style={{ color: "var(--text-muted)" }}>
-                    R. Fortunato Tormena, Itajaí - SC, 88318-053
-                  </span>
-                </div>
-              </div>
+
               <div className="contact-item">
                 <div className="contact-icon">📞</div>
                 <div>
                   <strong>Telefone / WhatsApp</strong>
                   <br />
-                  <a href="https://wa.me/5547991918029" target="_blank" rel="noreferrer">
+                  <a href={`https://wa.me/${process.env.NEXT_PUBLIC_WHATSAPP_PHONE || "5547991918029"}`} target="_blank" rel="noreferrer">
                     (47) 99191-8029
                   </a>
                 </div>

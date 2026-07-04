@@ -71,7 +71,7 @@ export default async function Home() {
                 <article key={gato.id} className="cat-card">
                   <div className="cat-card-overflow">
                     <img
-                      src={gato.foto_url || "/fotos/gato.jpg"}
+                      src={gato.foto_url || "/fotos/1.png"}
                       alt={`Gata ${gato.nome}`}
                     />
                   </div>
@@ -88,7 +88,7 @@ export default async function Home() {
               <>
                 <article className="cat-card">
                   <div className="cat-card-overflow">
-                    <img src="/fotos/gato.jpg" alt="Gata Mimi" />
+                    <img src="/fotos/1.png" alt="Gata Mimi" />
                   </div>
                   <div className="cat-card-body">
                     <h3>Mimi</h3>
@@ -97,7 +97,7 @@ export default async function Home() {
                 </article>
                 <article className="cat-card">
                   <div className="cat-card-overflow">
-                    <img src="/fotos/my%20masterpiece.jpg" alt="Gata Pipoca" />
+                    <img src="/fotos/2.png" alt="Gata Pipoca" />
                   </div>
                   <div className="cat-card-body">
                     <h3>Pipoca</h3>
@@ -106,7 +106,7 @@ export default async function Home() {
                 </article>
                 <article className="cat-card">
                   <div className="cat-card-overflow">
-                    <img src="/fotos/transferir%20(2).jpg" alt="Gato Gordo" />
+                    <img src="/fotos/3.png" alt="Gato Gordo" />
                   </div>
                   <div className="cat-card-body">
                     <h3>Gordo</h3>
@@ -143,10 +143,10 @@ export default async function Home() {
             </div>
           </div>
           <div className="sobre-collage">
-            <img src="/fotos/Yiyi.jpg" alt="Gata sorrindo" />
-            <img src="/fotos/https___pin_it_5exuYskLd.jpg" alt="Gatas juntas" />
-            <img src="/fotos/meowl%20windows%20oboi.jpg" alt="Gata descansando" />
-            <img src="/fotos/TENGO%20NUEVO%20CANAL!!!.jpg" alt="Gata curiosa" />
+            <img src="/fotos/4.png" alt="Gata sorrindo" />
+            <img src="/fotos/1.png" alt="Gatas juntas" />
+            <img src="/fotos/2.png" alt="Gata descansando" />
+            <img src="/fotos/3.png" alt="Gata curiosa" />
           </div>
         </div>
       </section>
@@ -282,7 +282,7 @@ export default async function Home() {
             }}
           >
             <img
-              src="/fotos/meowl%20windows%20oboi.jpg"
+              src="/fotos/2.png"
               alt="Nossa ONG"
               style={{ width: "100%", height: 340, objectFit: "cover" }}
             />

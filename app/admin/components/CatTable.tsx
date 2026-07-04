@@ -77,7 +77,7 @@ export default function CatTable({ gatos }: CatTableProps) {
                   <td>
                     <div className="admin-cat-info">
                       <img
-                        src={gato.foto_url || "/fotos/gato.jpg"}
+                        src={gato.foto_url || "/fotos/1.png"}
                         alt={gato.nome}
                         className="admin-cat-thumb"
                       />
