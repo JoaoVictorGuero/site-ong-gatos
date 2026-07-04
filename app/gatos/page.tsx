@@ -69,7 +69,7 @@ export default async function Gatos() {
                 <article key={gato.id} className="cat-card">
                   <div className="cat-card-overflow">
                     <img
-                      src={gato.foto_url || "/fotos/gato.jpg"}
+                      src={gato.foto_url || "/fotos/1.png"}
                       alt={`Gata ${gato.nome}`}
                     />
                   </div>

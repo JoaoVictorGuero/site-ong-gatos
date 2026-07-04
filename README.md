@@ -1,4 +1,4 @@
-# 🐾 ResgatAS - Plataforma de Adoção e Bem-Estar Felino
+![alt text](image.png)# 🐾 ResgatAS - Plataforma de Adoção e Bem-Estar Felino
 
 **ResgatAS** é uma aplicação web desenvolvida para facilitar a conexão entre gatos resgatados e potenciais adotantes. O projeto visa promover o bem-estar animal através de um sistema de adoção responsável, doação e gestão de eventos beneficentes, além de oferecer conteúdo informativo para a comunidade.
 
@@ -14,7 +14,7 @@ Desenvolver uma plataforma que automatize e organize os processos da ONG **Resga
 - **[React](https://react.dev/):** Biblioteca JavaScript para construção de interfaces de usuário.
 - **[TypeScript](https://www.typescriptlang.org/):** Superset do JavaScript que adiciona tipagem estática ao código, garantindo mais segurança e manutenibilidade.
 - **[Bootstrap](https://getbootstrap.com/):** Framework CSS para criação de componentes estilizados e responsivos de forma ágil.
-- **[Sanity CMS](https://www.sanity.io/):** Headless CMS utilizado para o gerenciamento de conteúdo da plataforma (como os gatos disponíveis, eventos, etc.).
+- **[Supabase](https://supabase.com/):** Backend-as-a-Service (BaaS) com PostgreSQL para banco de dados, armazenamento de fotos e autenticação (OAuth).
 
 ## 📂 Estrutura do Projeto
 
@@ -22,13 +22,19 @@ Desenvolver uma plataforma que automatize e organize os processos da ONG **Resga
 site-ong-gatos/
 ├── app/                   # Rotas e páginas da aplicação (Next.js App Router)
 ├── fotos/                 # Imagens e recursos visuais locais
-├── lib/                   # Configurações de bibliotecas de terceiros (ex: cliente do Sanity)
+├── lib/                   # Configurações de bibliotecas de terceiros
 ├── public/                # Arquivos estáticos servidos diretamente na raiz
 ├── types/                 # Definições de tipos e interfaces TypeScript
+├── middleware.ts          # Proteção de rotas do painel admin
 ├── next.config.ts         # Configurações do Next.js
 ├── package.json           # Dependências e scripts do projeto
 └── tsconfig.json          # Configuração do compilador TypeScript
 ```
+
+## 🌐 Deploy (Produção)
+
+A plataforma está disponível online e pode ser acessada através do link:
+**[https://github-resgatas.vercel.app](https://github-resgatas.vercel.app)**
 
 ## 🚀 Como Executar
 
@@ -55,8 +61,8 @@ Siga os passos abaixo para configurar e rodar o projeto localmente.
    ```
 
 3. Configure as variáveis de ambiente:
-   - Crie um arquivo `.env.local` na raiz do projeto.
-   - Adicione as variáveis necessárias para conectar-se ao Sanity CMS (ex: `NEXT_PUBLIC_SANITY_PROJECT_ID`, `NEXT_PUBLIC_SANITY_DATASET`).
+   - Crie um arquivo `.env.local` na raiz do projeto (use o arquivo `.env.example` como modelo).
+   - Adicione as variáveis necessárias para conectar-se ao Supabase (`NEXT_PUBLIC_SUPABASE_URL` e `NEXT_PUBLIC_SUPABASE_ANON_KEY`).
 
 4. Inicie o servidor de desenvolvimento:
 
