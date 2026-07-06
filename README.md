@@ -36,6 +36,22 @@ site-ong-gatos/
 A plataforma está disponível online e pode ser acessada através do link:
 **[https://github-resgatas.vercel.app](https://github-resgatas.vercel.app)**
 
+## 🗄️ Banco de Dados (Supabase)
+
+O projeto utiliza o Supabase (PostgreSQL). Para popular o banco e criar as tabelas necessárias localmente ou em um novo projeto:
+1. Crie um projeto no [Supabase](https://supabase.com/).
+2. Acesse a aba **SQL Editor**.
+3. Copie o conteúdo do arquivo `supabase-setup.sql` (localizado na raiz do projeto) e execute-o. Ele criará todas as tabelas (`cats`, `admins`, `contact_requests`), as políticas de segurança e configurará alguns gatos de exemplo. Há também instruções comentadas nele para a criação do bucket de imagens.
+
+## 🔐 Credenciais de Demonstração (Painel Admin)
+
+A autenticação da área restrita (`/admin`) é feita através de **Login com Google**. Por questões de segurança, apenas e-mails previamente autorizados podem acessar o sistema.
+
+**Para que o avaliador consiga testar o painel administrativo:**
+1. Após rodar o script SQL no Supabase, abra a tabela `admins`.
+2. Insira o e-mail da sua conta Google pessoal como um novo registro na tabela `admins`.
+3. Na tela de login da aplicação, clique em "Login com Google" e entre com essa mesma conta.
+
 ## 🚀 Como Executar
 
 Siga os passos abaixo para configurar e rodar o projeto localmente.
@@ -75,4 +91,4 @@ Siga os passos abaixo para configurar e rodar o projeto localmente.
 
 ---
 
-**Feito por integrantes do projeto: Hugo Bertoglio, João Guero e Mariah Bork**
+**Feito por integrantes do projeto: Hugo Bertoglio, João Guero , Fabricio ricardo e Mariah Bork**
