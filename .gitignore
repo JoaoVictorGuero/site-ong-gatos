@@ -35,7 +35,4 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
-# arquivos sensíveis — schema do banco e scripts de teste
-supabase-setup.sql
-supabase-contact-requests.sql
-test-admins.ts
+
